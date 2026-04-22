@@ -1,0 +1,57 @@
+# ─────────────────────────────────────────────────────────────────────
+# DEMONSTRATION SUBSET — Universal emoji signals
+#
+# Emojis are language-independent and often carry secondary meanings
+# in criminal communication. This file is a small sample intended to
+# illustrate how the lexicon schema handles emoji matching and
+# ambiguity-via-context. NOT the full production emoji lexicon. A
+# lexicon built from this subset alone will not perform at production
+# quality and should not drive investigative decisions.
+# ─────────────────────────────────────────────────────────────────────
+# Sources for this demonstration sample:
+#   - DEA "Emoji Drug Code" public advisory (2021)
+#   - Open-source criminology literature
+# Maintainer: STNDRDS AB
+# ─────────────────────────────────────────────────────────────────────
+
+category: emoji_signals
+language: all
+version: "2026-04-demo"
+
+terms:
+  # Highly ambiguous emojis — only signal in context.
+  - term: "🍃"
+    canonical: "cannabis-leaf reference"
+    confidence: 0.25
+    context_boosters: ["smoke", "pack", "gram", "röka", "gräs", "joint"]
+    context_dampeners: ["plant", "garden", "tree", "nature"]
+    type: emoji
+    source: "DEA Emoji Drug Code (public)"
+
+  - term: "💊"
+    canonical: "pill reference"
+    confidence: 0.30
+    context_boosters: ["dose", "press", "perc", "xan", "molly", "roll"]
+    context_dampeners: ["medicine", "doctor", "pharmacy", "prescription"]
+    type: emoji
+
+  - term: "🔌"
+    canonical: "plug / dealer reference"
+    confidence: 0.25
+    context_boosters: ["got", "need", "pack", "hit up", "through"]
+    context_dampeners: ["outlet", "charger", "wall", "electric"]
+    type: emoji
+
+  - term: "❄️"
+    canonical: "cocaine / snow reference"
+    confidence: 0.30
+    context_boosters: ["line", "gram", "white", "pure", "girl"]
+    context_dampeners: ["winter", "weather", "christmas", "snow day"]
+    type: emoji
+
+  - term: "💉"
+    canonical: "injection reference"
+    confidence: 0.40
+    context_boosters: ["shoot", "fix", "vein", "dope", "heroin"]
+    context_dampeners: ["vaccine", "flu", "covid", "doctor"]
+    type: emoji

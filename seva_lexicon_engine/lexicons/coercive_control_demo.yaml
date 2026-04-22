@@ -1,0 +1,102 @@
+# ─────────────────────────────────────────────────────────────────────
+# DEMONSTRATION LEXICON — coercive-control markers (toy subset)
+#
+# This file is a minimal, illustrative sample of two English markers
+# per category, intended to show that the lexicon schema naturally
+# extends to a coercive-control use case. It is
+# explicitly NOT the production coercive-control lexicon used in the
+# deployed S-EVA pipeline.
+#
+# What is missing here compared to production:
+#   (a) 10–40× more markers per category, curated with native-speaker
+#       input across multiple languages
+#   (b) an integrated "context-gate" that is a separate layer above the
+#       per-term booster mechanism demonstrated here — the gate enforces
+#       a co-occurrence rule of at least two relational indicators in
+#       the same message boundary
+#   (c) ongoing false-positive / false-negative calibration from real
+#       casework
+#
+# A lexicon built from this sample alone will NOT perform at
+# production quality and should not be used for investigative
+# decision-making. Use it as a schema reference, nothing more.
+# ─────────────────────────────────────────────────────────────────────
+# Sources for this demonstration sample:
+#   - Stark, E. (2007). Coercive Control. Oxford University Press.
+#   - Pence, E. & Paymar, M. (1993). The Duluth Model.
+#   - Hamberger, L. K., Larsen, S. E., & Lehrner, A. (2017). Aggression
+#     and Violent Behavior, 37, 1–11.
+# Maintainer: STNDRDS AB
+# ─────────────────────────────────────────────────────────────────────
+
+category: coercive_control
+language: en
+version: "2026-04-demo"
+
+terms:
+  # ── Gaslighting ──────────────────────────────────────────────────
+  - term: "you're imagining things"
+    canonical: "gaslighting — reality denial"
+    confidence: 0.40
+    context_boosters: ["you", "again", "always"]
+    context_dampeners: ["therapist", "support group", "doctor"]
+    source: "Stark (2007); Hamberger, Larsen & Lehrner (2017)"
+
+  - term: "that never happened"
+    canonical: "gaslighting — memory denial"
+    confidence: 0.35
+    context_boosters: ["you", "remember", "said"]
+    context_dampeners: ["records show", "officially", "historically"]
+
+  # ── Isolation ────────────────────────────────────────────────────
+  - term: "you don't need them"
+    canonical: "isolation — severing support network"
+    confidence: 0.25
+    context_boosters: ["family", "friends", "always"]
+    context_dampeners: ["abusive", "harmful", "told me"]
+    source: "Duluth Model, Power and Control Wheel"
+
+  - term: "only I understand you"
+    canonical: "isolation — exclusive-closeness framing"
+    confidence: 0.55
+    context_boosters: ["truly", "no one", "me"]
+
+  # ── Love-bombing ─────────────────────────────────────────────────
+  - term: "you are my everything"
+    canonical: "love-bombing — totalising attachment"
+    confidence: 0.30
+    context_boosters: ["without", "need", "I"]
+    context_dampeners: ["anniversary", "wedding vow"]
+    source: "Stark (2007)"
+
+  - term: "I've never felt this way"
+    canonical: "love-bombing — intensity framing"
+    confidence: 0.40
+    context_boosters: ["you", "before", "anyone"]
+
+  # ── Blame-shifting ───────────────────────────────────────────────
+  - term: "look what you made me do"
+    canonical: "blame-shifting — causation reversal"
+    confidence: 0.55
+    context_boosters: ["you", "your fault", "because of you"]
+    source: "Hamberger, Larsen & Lehrner (2017)"
+
+  - term: "it's your fault"
+    canonical: "blame-shifting — direct attribution"
+    confidence: 0.40
+    context_boosters: ["always", "because", "you"]
+    context_dampeners: ["admitted", "apologise", "sorry"]
+
+  # ── Economic control ─────────────────────────────────────────────
+  - term: "you can't manage money"
+    canonical: "economic control — competence framing"
+    confidence: 0.50
+    context_boosters: ["yourself", "you", "need me"]
+    context_dampeners: ["admittedly", "historically"]
+    source: "Stark (2007)"
+
+  - term: "I'll handle the finances"
+    canonical: "economic control — consolidation of access"
+    confidence: 0.30
+    context_boosters: ["accounts", "cards", "banking"]
+    context_dampeners: ["joint decision", "agreed together", "partnership"]

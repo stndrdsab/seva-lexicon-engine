@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────────────────────────────
+# DEMONSTRATION SUBSET — English fraud terminology
+#
+# Small sample illustrating the lexicon schema. NOT the full production
+# fraud lexicon. A lexicon built from this subset alone will not perform
+# at production quality and should not drive investigative decisions.
+# ─────────────────────────────────────────────────────────────────────
+# Sources for this demonstration sample:
+#   - FTC Consumer Alerts (public)
+#   - FBI IC3 annual reports (public)
+#   - Europol IOCTA report (public)
+# Maintainer: STNDRDS AB
+# ─────────────────────────────────────────────────────────────────────
+
+category: fraud
+language: en
+version: "2026-04-demo"
+
+terms:
+  # Mid-confidence scam indicator with strong boosters — demonstrates
+  # how base 0.70 plus two context words reaches the 0.98 ceiling.
+  - term: "advance fee"
+    canonical: "upfront payment scam"
+    confidence: 0.70
+    context_boosters: ["pay", "send", "wire", "transfer"]
+    source: "FTC Consumer Alerts (public)"
+
+  # Classic indicator — used here at 0.75 for illustration rather than
+  # the canonical high-confidence value, to keep this demo lexicon
+  # away from production-tuned precision numbers.
+  - term: "nigerian prince"
+    canonical: "advance-fee scam (classic)"
+    confidence: 0.75
+
+  # Impersonation / identity indicator.
+  - term: "identity theft"
+    canonical: "identity theft"
+    confidence: 0.75
+
+  # Common pressure phrase that needs context because it also appears
+  # in legitimate commerce — shows the dampener mechanism.
+  - term: "wire transfer"
+    canonical: "wire-transfer request"
+    confidence: 0.30
+    context_boosters: ["urgent", "vendor", "invoice", "change"]
+    context_dampeners: ["salary", "rent", "mortgage"]
+
+  # Multi-word phrase.
+  - term: "stranded abroad"
+    canonical: "stranded-abroad impersonation scam"
+    confidence: 0.70
+    context_boosters: ["send money", "urgent", "passport", "embassy"]

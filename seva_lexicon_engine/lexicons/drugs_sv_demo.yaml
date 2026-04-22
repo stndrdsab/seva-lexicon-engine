@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────────────────────────────
+# DEMONSTRATION SUBSET — Swedish drug terminology
+#
+# Small sample illustrating the lexicon schema. NOT the full production
+# Swedish drug lexicon. A lexicon built from this subset alone will not
+# perform at production quality and should not drive investigative
+# decisions.
+# ─────────────────────────────────────────────────────────────────────
+# Sources for this demonstration sample:
+#   - Polisen.se terminology pages (public)
+#   - Centralförbundet för alkohol- och narkotikaupplysning (CAN)
+# Maintainer: STNDRDS AB
+# ─────────────────────────────────────────────────────────────────────
+
+category: drugs
+language: sv
+version: "2026-04-demo"
+
+terms:
+  # Ambiguous core term that benefits from drug-context boosters.
+  - term: "gräs"
+    canonical: "cannabis"
+    confidence: 0.30
+    context_boosters: ["röka", "joint", "gram", "köpa"]
+    context_dampeners: ["gräsmatta", "klippa"]
+    source: "Polisen.se (public)"
+
+  - term: "rullar"
+    canonical: "joint / rolled cannabis"
+    confidence: 0.40
+    context_boosters: ["röka", "gräs", "tjack"]
+    context_dampeners: ["hjul", "bil"]
+
+  # High-confidence unambiguous term.
+  - term: "skunk"
+    canonical: "cannabis (strong variety)"
+    confidence: 0.70
+
+  # Low-confidence term requiring booster co-occurrence.
+  - term: "tjack"
+    canonical: "amphetamine"
+    confidence: 0.60
+    context_boosters: ["knarka", "spruta", "pundare", "gram"]
+    context_dampeners: ["gammal", "sliten"]
+    source: "Polisen.se (public)"
+
+  # Multi-word phrase.
+  - term: "vitt pulver"
+    canonical: "cocaine / amphetamine (white powder)"
+    confidence: 0.55
+    context_boosters: ["gram", "linje", "sniffa"]
+    context_dampeners: ["socker", "mjöl", "baka"]

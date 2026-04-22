@@ -1,0 +1,59 @@
+# ─────────────────────────────────────────────────────────────────────
+# DEMONSTRATION SUBSET — English drug terminology
+#
+# This file is a deliberately small sample intended to illustrate the
+# lexicon YAML schema. It is NOT the full production drug lexicon used
+# in the deployed S-EVA pipeline. A lexicon built from this subset
+# alone will not perform at production quality and should not drive
+# investigative decisions.
+# ─────────────────────────────────────────────────────────────────────
+# Sources for this demonstration sample:
+#   - DEA Intelligence Report "Slang Terms and Code Words" (public)
+#   - UNODC World Drug Report (public)
+# Maintainer: STNDRDS AB
+# ─────────────────────────────────────────────────────────────────────
+
+category: drugs
+language: en
+version: "2026-04-demo"
+
+terms:
+  # High-confidence term — unambiguous slang, no context adjustment needed.
+  - term: "zaza"
+    canonical: "cannabis (premium)"
+    confidence: 0.75
+    source: "DEA Intelligence Report (public)"
+
+  # Mid-confidence term that is ambiguous without context. Boosters raise
+  # confidence when drug-adjacent vocabulary is nearby; dampeners lower
+  # it when the sense is clearly non-drug.
+  - term: "exotic"
+    canonical: "cannabis (premium strain)"
+    confidence: 0.35
+    context_boosters: ["smoke", "pack", "strain", "gas", "loud"]
+    context_dampeners: ["animal", "travel", "bird"]
+    source: "DEA Intelligence Report (public)"
+
+  # Very ambiguous term — only signals drug context when several
+  # boosters co-occur; otherwise the dampeners keep it effectively
+  # silent.
+  - term: "gas"
+    canonical: "cannabis (potent)"
+    confidence: 0.20
+    context_boosters: ["smoke", "pack", "strain", "loud", "plug"]
+    context_dampeners: ["station", "fuel", "car", "price", "cooking"]
+
+  # Generic ambiguous term — demonstrates that "pack" alone is weak
+  # and needs co-occurrence with other drug-context words to matter.
+  - term: "pack"
+    canonical: "quantity of drugs"
+    confidence: 0.30
+    context_boosters: ["serve", "move", "flip", "gram", "ounce"]
+    context_dampeners: ["backpack", "suitcase", "luggage", "wolf"]
+
+  # Multi-word phrase — engine matches with flexible whitespace.
+  - term: "white girl"
+    canonical: "cocaine"
+    confidence: 0.65
+    context_boosters: ["line", "gram", "snort", "pure"]
+    source: "DEA Intelligence Report (public)"

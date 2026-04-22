@@ -1,0 +1,50 @@
+# ─────────────────────────────────────────────────────────────────────
+# DEMONSTRATION SUBSET — Swedish fraud terminology
+#
+# Small sample illustrating the lexicon schema. NOT the full production
+# Swedish fraud lexicon. A lexicon built from this subset alone will
+# not perform at production quality and should not drive investigative
+# decisions.
+# ─────────────────────────────────────────────────────────────────────
+# Sources for this demonstration sample:
+#   - Polisen.se fraud taxonomy (public)
+#   - Brottsförebyggande rådet (Brå) reports (public)
+# Maintainer: STNDRDS AB
+# ─────────────────────────────────────────────────────────────────────
+
+category: fraud
+language: sv
+version: "2026-04-demo"
+
+terms:
+  # Unambiguous fraud terms. Confidence values here are held at 0.75
+  # for illustration — the production lexicon may tune these higher or
+  # lower based on context-sensitivity calibration; this demo stays
+  # away from precision-tuned values.
+  - term: "bluffaktura"
+    canonical: "invoice fraud"
+    confidence: 0.75
+    source: "Polisen.se (public)"
+
+  - term: "identitetsstöld"
+    canonical: "identity theft"
+    confidence: 0.75
+    source: "Polisen.se (public)"
+
+  - term: "falsk legitimation"
+    canonical: "forged ID"
+    confidence: 0.75
+
+  # Mid-confidence multi-word phrase that benefits from context.
+  - term: "garanterad avkastning"
+    canonical: "guaranteed-return investment scam"
+    confidence: 0.65
+    context_boosters: ["investering", "riskfri", "snabb", "kort tid"]
+    context_dampeners: ["sparkonto", "bank", "statsobligation"]
+
+  # Low-confidence term requiring context.
+  - term: "skicka pengar"
+    canonical: "send-money request (potential scam)"
+    confidence: 0.20
+    context_boosters: ["akut", "fastnat", "utomlands", "western union"]
+    context_dampeners: ["faktura", "hyra", "familj"]
