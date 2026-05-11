@@ -17,6 +17,18 @@ language: sv
 version: "2026-04-demo"
 
 terms:
+  # Worked example reproduced in the accompanying article:
+  # ambiguous core term ("snö" = snow) with drug-context boosters that
+  # raise its base 0.20 to 0.65 when surrounded by quantity/transaction
+  # vocabulary, and weather/seasonal dampeners that defuse the false
+  # positive when "snö" really means actual snow.
+  - term: "snö"
+    canonical: "kokain (cocaine)"
+    confidence: 0.20
+    context_boosters: ["gram", "pris", "rent", "bana", "snort", "fint", "hämta", "swisha", "kvar"]
+    context_dampeners: ["väder", "skidor", "snöar", "vinter", "snöboll", "snögubbe"]
+    source: "CAN/Drugsmart.se 'Kokain'; Polisen.se 'Har du koll på drogslangen?'"
+
   # Ambiguous core term that benefits from drug-context boosters.
   - term: "gräs"
     canonical: "cannabis"
