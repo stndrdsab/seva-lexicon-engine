@@ -27,11 +27,15 @@ and are not part of this release.
   illustrate the YAML schema rather than operate as production detectors:
   `drugs_en_demo`, `drugs_sv_demo`, `fraud_en_demo`, `fraud_sv_demo`,
   `emoji_universal_demo`, and `coercive_control_demo`. Each file's
-  header is explicit that it is a schema sketch, and each term carries a
-  `source:` citation to a public reference (DEA Intelligence Reports,
-  UNODC, Polisen.se, FTC, Europol, Stark 2007, Duluth Model, Hamberger
-  et al. 2017). The full operational lexicons used in the deployed
-  S-EVA pipeline are not part of this release.
+  header is explicit that it is a schema sketch. Terms with available
+  institutional sourcing carry an inline `source:` citation to a public
+  reference (DEA Intelligence Reports, UNODC, Polisen.se, FTC, Europol,
+  Stark 2007, Duluth Model, Hamberger et al. 2017); terms without
+  verifiable institutional attribution have the field omitted rather
+  than backfilled with unverifiable references — a deliberate
+  source-verification policy, not an oversight. The full operational
+  lexicons used in the deployed S-EVA pipeline are not part of this
+  release.
 - **15 smoke tests**, a runnable example, and `pyproject.toml` for
   editable installs.
 
@@ -47,6 +51,30 @@ and are not part of this release.
 - **It is not a turnkey forensic tool.** Investigator-ready pipelines
   need ingestion, chain of custody, reporting, and review workflows on
   top of this.
+
+---
+
+## Architecture coverage
+
+The accompanying article describes a four-layer detection architecture.
+This reference release implements:
+
+- **Layer 1** — pattern lexicon with per-term confidence and per-term
+  context-window boosters/dampeners. **Included** as six demonstration
+  subsets.
+- **Layer 2** — relational-stance gate (pronoun and stance-indicator
+  co-occurrence check at the message level). *Not included.*
+- **Layer 3** — embedding-similarity rescue against per-category
+  exemplars. *Not included.*
+- **Layer 4** — trajectory aggregation across the conversation
+  timeline. *Not included.*
+
+The per-term context-window mechanism in the lexicon schema (see
+[How context adjustment works](#how-context-adjustment-works) below) is
+internal to Layer 1 and is distinct from the Layer 2 relational-stance
+gate that sits above it in the deployed pipeline. The release goal is
+to make Layer 1 lexicon curation and pattern matching peer-reviewable,
+not to ship a turnkey detector.
 
 ---
 
@@ -209,6 +237,17 @@ For the operational coercive-control module, cross-case intelligence,
 narrative generation, and full forensic pipeline, see the main S-EVA
 product. This release exists to make the *approach* peer-reviewable
 and reproducible, not to ship the product.
+
+## Citing this work
+
+If you reference this repository, please cite the accompanying
+article:
+
+> Antonsen, A. (2026). *Detecting coercive control patterns in
+> forensic chat analysis: a pattern-plus-context approach.*
+> eForensics Magazine, forthcoming.
+
+A BibTeX entry will be added once the article is published.
 
 ## License
 
